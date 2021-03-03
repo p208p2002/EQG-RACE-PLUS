@@ -5,4 +5,4 @@ Cloze and Specific quesitons now is split, and the data is classification by art
 
 ### Download
 - [GitHub](https://github.com/p208p2002/EQG-RACE-PLUS/releases)
-- [Goole Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
+- [Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
