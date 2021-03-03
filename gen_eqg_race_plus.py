@@ -52,7 +52,7 @@ if __name__ == "__main__":
             race_dataset = RaceDataset(split,level)
             with open(os.path.join(eqg_race_plus_dir,level+'.jsonl'),'a') as merge_race_f:
                 for race_data in race_dataset:
-                    race_questions = race_data['questions']
+                    race_questions = race_data['questions'][:]
                     race_data['specific_questions'] = []
                     race_data['cloze_questions'] = []
 
@@ -70,12 +70,31 @@ if __name__ == "__main__":
                             eqg_race_question_key = gen_match_key(eqg_race_data['question'])
 
                             if race_question_key == eqg_race_question_key:
-                                race_data['specific_questions'].append(race_question)                                
+                                race_data['specific_questions'].append(race_question)
                                 eqg_race.remove(eqg_race_data)
+
+                                try:
+                                    race_questions.remove(race_question)
+                                except:
+                                    pass
                                 match_count += 1
+
                             step+=1
                             if step%5000==0:
                                 print('%3.2f'%(match_count/total*100),'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count),'step:',str(step/1000)+'k',"{:<50}".format(merge_race_f.name),end='\r')
+                    
+                    # general_questions
+                    race_data['general_questions'] = race_questions
+
+                    # clean repeat data
+                    for key in race_data.keys():
+                        try:
+                            if type(race_data[key]) == list:
+                                race_data[key] = list(set(race_data[key]))
+                        except:
+                            pass
+
+                    assert len(race_data['questions']) == (len(race_data['specific_questions']) + len(race_data['cloze_questions']) + len(race_data['general_questions']))
                     
                     merge_race_f.write(json.dumps(race_data)+'\n')
         print(split,'%3.2f'%(match_count/total*100),'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count)," "*60,end='\n')
