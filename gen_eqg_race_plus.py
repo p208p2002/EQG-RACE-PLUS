@@ -89,12 +89,13 @@ if __name__ == "__main__":
                     # clean repeat data
                     for key in race_data.keys():
                         try:
-                            if type(race_data[key]) == list:
+                            if type(race_data[key]) == list and key in ['specific_questions','cloze_questions','general_questions']:
                                 race_data[key] = list(set(race_data[key]))
                         except:
                             pass
 
-                    assert len(race_data['questions']) == (len(race_data['specific_questions']) + len(race_data['cloze_questions']) + len(race_data['general_questions']))
+                    # assert len(race_data['questions']) == (len(race_data['specific_questions']) + len(race_data['cloze_questions']) + len(race_data['general_questions']))
+                    assert len(race_data['questions']) == len(race_data['answers'])
                     
                     merge_race_f.write(json.dumps(race_data)+'\n')
         print(split,'%3.2f'%(match_count/total*100),'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count)," "*60,end='\n')
