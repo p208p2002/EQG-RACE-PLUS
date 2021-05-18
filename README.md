@@ -1,5 +1,5 @@
 # EQG-RACE-PLUS
-This dataset align [RACE](https://www.aclweb.org/anthology/D17-1082.pdf) and [EQG-RACE](https://arxiv.org/pdf/2012.06106.pdf) for divide question by three types(General, Cloze, and Specific)
+This work align [RACE](https://www.aclweb.org/anthology/D17-1082.pdf) and [EQG-RACE](https://arxiv.org/pdf/2012.06106.pdf), for divide question by three types(General, Cloze, and Specific)
 
 [Downlond dataset from Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
 
