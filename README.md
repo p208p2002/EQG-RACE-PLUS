@@ -1,7 +1,9 @@
 # EQG-RACE-PLUS
 This work align [RACE](https://www.aclweb.org/anthology/D17-1082.pdf) and [EQG-RACE](https://arxiv.org/pdf/2012.06106.pdf), for divide question by three types(General, Cloze, and Specific)
 
-[Downlond dataset from Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
+## Dataset Download
+- [Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
+- [GitHub Release](https://github.com/p208p2002/EQG-RACE-PLUS/releases)
 
 ## Example Data
 ```json
