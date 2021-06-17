@@ -1,62 +1,67 @@
-# EQG-RACE-PLUS
-This work align [RACE](https://www.aclweb.org/anthology/D17-1082.pdf) and [EQG-RACE](https://arxiv.org/pdf/2012.06106.pdf), for divide question by three types(General, Cloze, and Specific)
+# RACE for QGG
+This dataset is a subset of RACE, which contains three types(Factoid, Cloze and Summarization) of questions.
 
 ## Dataset Download
-- [Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
-- [GitHub Release](https://github.com/p208p2002/EQG-RACE-PLUS/releases)
+> preparing
+
+## Data Statistics
+|Types|Examples|Train|Dev|Test|
+|---|---|---|---|---|
+|Cloze|Yingying is Wangwang's  _ .|42217|2350|2412|
+|Factiod|What can Mimi do?|18176|1012|931|
+|Summarization|According to this passage we know that _ .|4183|248|247|
 
 ## Example Data
 ```json
 {
-    "id": "high12026.txt",
     "answers": [
         "D",
-        "C",
-        "D",
+        "A",
+        "B",
         "C"
     ],
     "options": [
         [
-            "introduce herself to John",
-            "talk about her bad year",
-            "ask for some advice",
-            "express her thanks"
+            "States",
+            "Doubts",
+            "Confirms",
+            "Removes"
         ],
         [
-            "didn't like her boyfriend",
-            "spent a lot of time online",
-            "wasn't satisfied with her job",
-            "received very good education"
+            "shows the kind of male birds females seek out.",
+            "indicates the wandering albatross is the most faithful.",
+            "is based on Professor Stutchbury's 20 years' research.",
+            "suggests that female birds select males near their home."
         ],
         [
-            "He is a very famous writer.",
-            "He used to live a very negative life.",
-            "He doesn't like sharing his life stories.",
-            "He likes helping others through writing positive blogs."
+            "young birds' quality depends on their feather.",
+            "some male birds care for others' young as their own.",
+            "female birds go to find males as soon as autumn comes.",
+            "female birds are responsible for feeding the hungry babies."
         ],
         [
-            "Practice makes perfect.",
-            "Bad luck doesn't exist long.",
-            "A positive attitude is rewarding.",
-            "A friend in need is a friend indeed."
+            "A book about love-birds.",
+            "Birds' living habits and love life",
+            "The fact that birds don't love their mates forever.",
+            "The factors that influence birds to look for another mate."
         ]
     ],
-    "article": "Dear John,\nMy name is Amber and I want to share my story ...",
     "questions": [
-        "Amber wrote the letter mainly to  _",
-        "We can infer from the passage that Amber  _",
-        "What is implied about John in the letter?",
-        "What does Amber's change tell us?"
+        "What does the underline word \"dispels\" mean?",
+        "The book The Private Lives of Birds  _  .",
+        "According to the passage, we can infer that  _  .",
+        "What is the passage mainly about?"
     ],
-    "specific_questions": [
-        "What is implied about John in the letter?"
+    "article": "\"Birds are not as loyal to their partners as you might think ...",
+    "id": "high11327.txt",
+    "factiod_questions": [
+        "What does the underline word \"dispels\" mean?"
     ],
     "cloze_questions": [
-        "Amber wrote the letter mainly to  _",
-        "We can infer from the passage that Amber  _"
+        "The book The Private Lives of Birds  _  ."
     ],
-    "general_questions": [
-        "What does Amber's change tell us?"
+    "summarization_questions": [
+        "According to the passage, we can infer that  _  ."
     ]
 }
 ```

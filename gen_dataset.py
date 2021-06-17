@@ -31,7 +31,12 @@ if __name__ == "__main__":
     splits = ['dev','test','train']
     levels = ['high','middle']
 
-    output_dir = 'datasets/EQG-RACE-PLUS'
+    g_type_keywords = open('g_type_keywords.txt','r',encoding='utf-8').read().strip().split('\n')
+    for i in range(len(g_type_keywords)):
+        g_type_keywords[i] = '.*' + g_type_keywords[i] + '.*'
+    g_type_keywords_reg_rule = r"|".join(g_type_keywords)
+
+    output_dir = 'datasets/qgg-dataset'
     os.system('rm -rf %s'%output_dir)
     os.makedirs(output_dir,exist_ok=True)
 
@@ -48,20 +53,32 @@ if __name__ == "__main__":
         eqg_race = json.load(eqg_race)
         total += len(eqg_race)
 
-        for level in levels:
+        summarization_type_question_count = 0        
+        factiod_type_question_count = 0
+        cloze_type_question_count = 0
+        
+        for level in levels:            
             race_dataset = RaceDataset(split,level)
             with open(os.path.join(eqg_race_plus_dir,level+'.jsonl'),'a') as merge_race_f:
                 for race_data in race_dataset:
                     race_questions = race_data['questions'][:]
-                    race_data['specific_questions'] = []
+                    race_data['factiod_questions'] = []
                     race_data['cloze_questions'] = []
+                    race_data['summarization_questions'] = []
 
                     # cloze_questions
                     for race_question in race_questions[:]:
-                        if re.search('_',race_question):
-                            race_data['cloze_questions'].append(race_question)
+                        if re.search('_',race_question):                            
+                            #
+                            if re.match(g_type_keywords_reg_rule,race_question.lower()) is not None:
+                                # print(race_question)
+                                summarization_type_question_count += 1
+                                race_data['summarization_questions'].append(race_question)
+                            else:
+                                cloze_type_question_count +=1
+                                race_data['cloze_questions'].append(race_question)
                             race_questions.remove(race_question)
-                    
+                                                    
                     # specific_questions
                     for race_question in race_questions[:]:
                         race_question_key = gen_match_key(race_question)
@@ -69,8 +86,15 @@ if __name__ == "__main__":
                         for eqg_i,eqg_race_data in enumerate(eqg_race): # dict_keys(['question', 'max_sent', 'tag', 'rouge', 'answer', 'sent'])
                             eqg_race_question_key = gen_match_key(eqg_race_data['question'])
 
-                            if race_question_key == eqg_race_question_key:
-                                race_data['specific_questions'].append(race_question)
+                            if race_question_key == eqg_race_question_key:                                
+                                #
+                                if re.match(g_type_keywords_reg_rule,race_question.lower()) is not None: 
+                                    # print(race_question)
+                                    summarization_type_question_count += 1
+                                    race_data['summarization_questions'].append(race_question)
+                                else:
+                                    factiod_type_question_count += 1
+                                    race_data['factiod_questions'].append(race_question)
                                 eqg_race.remove(eqg_race_data)
 
                                 try:
@@ -80,7 +104,7 @@ if __name__ == "__main__":
                                 match_count += 1
 
                             step+=1
-                            if step%5000==0:
+                            if step%5000==0:                                
                                 print('%3.2f'%(match_count/total*100),'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count),'step:',str(step/1000)+'k',"{:<50}".format(merge_race_f.name),end='\r')
                     
                     # general_questions
@@ -89,14 +113,17 @@ if __name__ == "__main__":
                     # clean repeat data
                     for key in race_data.keys():
                         try:
-                            if type(race_data[key]) == list and key in ['specific_questions','cloze_questions','general_questions']:
-                                race_data[key] = list(set(race_data[key]))
+                            if type(race_data[key]) == list and key in ['factiod_questions','cloze_questions','summarization_questions','general_questions']:
+                                race_data[key] = list(set(race_data[key]))                                
                         except:
                             pass
-
-                    # assert len(race_data['questions']) == (len(race_data['specific_questions']) + len(race_data['cloze_questions']) + len(race_data['general_questions']))
-                    assert len(race_data['questions']) == len(race_data['answers'])
-                    
-                    merge_race_f.write(json.dumps(race_data)+'\n')
-        print(split,'%3.2f'%(match_count/total*100),'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count)," "*60,end='\n')
-            
+                    del race_data['general_questions']                    
+                    merge_race_f.write(json.dumps(race_data)+'\n')        
+        print(split,'%3.2f'%(match_count/total*100),
+            'match_count(miss_match): %d/%d(%d)'%(match_count,total,total-match_count),
+            "cloze_type:%d"%(cloze_type_question_count),
+            "factiod_type:%d"%(factiod_type_question_count),            
+            "summarization_type:%d"%(summarization_type_question_count),
+            " "*60
+            ,end='\n')
+        
