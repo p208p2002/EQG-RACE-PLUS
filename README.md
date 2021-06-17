@@ -7,9 +7,9 @@ This dataset is a subset of RACE, which contains three types(Factoid, Cloze and 
 ## Data Statistics
 |Types|Examples|Train|Dev|Test|
 |---|---|---|---|---|
-|Cloze|Yingying is Wangwang's  _ .|42217|2350|2412|
-|Factiod|What can Mimi do?|18176|1012|931|
-|Summarization|According to this passage we know that _ .|4183|248|247|
+|Cloze|Yingying is Wangwang's  _ .|43167|2405|2462|
+|Factiod|What can Mimi do?|18405|1030|944|
+|Summarization|According to this passage we know that _ .|3004|175|184|
 
 ## Example Data
 ```json
