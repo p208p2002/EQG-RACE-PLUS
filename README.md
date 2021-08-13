@@ -1,4 +1,4 @@
-# RACE for QGG
+# QGG-RACE Dataset
 This dataset is a subset of RACE, which contains three types(Factoid, Cloze and Summarization) of questions.
 
 ## Dataset Download
