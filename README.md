@@ -3,7 +3,7 @@ This work align [RACE](https://www.aclweb.org/anthology/D17-1082.pdf) and [EQG-R
 
 ## Dataset Download
 - [Google Drive](https://drive.google.com/file/d/1wXGyEjzwDpvG1TCv6C8JfUwDJmOiBwOr/view?usp=sharing)
-- [GitHub Release](https://github.com/p208p2002/EQG-RACE-PLUS/releases)
+- [GitHub Release](https://github.com/p208p2002/EQG-RACE-PLUS/releases/tag/v1.0)
 
 ## Example Data
 ```json
