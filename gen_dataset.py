@@ -1,9 +1,8 @@
 import json
 import os
-from torch.utils.data import Dataset
 import re
 
-class RaceDataset(Dataset):
+class RaceDataset():
     def __init__(self,split_set,level,dataset_dir='datasets/RACE',no_label=False):
         super().__init__()
         assert split_set in ['dev','test','train']
