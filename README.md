@@ -2,7 +2,7 @@
 This dataset is a subset of RACE, which contains three types(Factoid, Cloze and Summarization) of questions.
 
 ## Dataset Download
-> preparing
+[GitHub Release](https://github.com/p208p2002/EQG-RACE-PLUS/releases/tag/qgg-race-1.0)
 
 ## Data Statistics
 |Types|Examples|Train|Dev|Test|
